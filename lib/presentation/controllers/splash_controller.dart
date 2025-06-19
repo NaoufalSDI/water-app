@@ -1,12 +1,22 @@
 import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:maaya/config/app_routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashController extends GetxController {
   Future<void> initSplash(VoidCallback onAnimationDone) async {
     await Future.delayed(const Duration(milliseconds: 2200));
     onAnimationDone();
+
     await Future.delayed(const Duration(milliseconds: 1200));
-    Get.offNamed(Routes.HOME);
+
+    final prefs = await SharedPreferences.getInstance();
+    final seen = prefs.getBool('seenOnboarding') ?? false;
+
+    if (seen) {
+      Get.offNamed(Routes.HOME);
+    } else {
+      Get.offNamed(Routes.ONBOARDING);
+    }
   }
 }
