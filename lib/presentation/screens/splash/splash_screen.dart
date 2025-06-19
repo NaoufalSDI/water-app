@@ -27,17 +27,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-        systemNavigationBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ),
-    );
+    final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Center(
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),
@@ -48,14 +41,14 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
           child:
               showText
-                  ? const Text(
-                    'Maaya',
-                    key: ValueKey('text'),
-                    style: TextStyle(
-                      fontSize: 30,
+                  ? Text(
+                    'maaya'.tr,
+                    key: const ValueKey('text'),
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      fontSize: 35,
                       fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w800,
-                      color: Colors.blueAccent,
+                      fontWeight: FontWeight.w900,
+                      color: theme.primaryColor,
                       letterSpacing: 2,
                     ),
                   )
