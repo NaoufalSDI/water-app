@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:maaya/config/app_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class OnboardingController extends GetxController {
@@ -9,13 +10,13 @@ class OnboardingController extends GetxController {
       currentPage.value++;
     } else {
       await setSeenOnboarding();
-      Get.offAllNamed('/home');
+      Get.offAllNamed(Routes.CONGRAST);
     }
   }
 
   Future<void> skip() async {
     await setSeenOnboarding();
-    Get.offAllNamed('/home');
+    Get.offAllNamed(Routes.CONGRAST);
   }
 
   Future<void> setSeenOnboarding() async {

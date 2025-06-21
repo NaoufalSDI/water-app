@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maaya/config/app_colors.dart';
+import 'package:maaya/core/theme/app_colors.dart';
 
 class AppTheme {
   static final lightTheme = ThemeData(
@@ -24,7 +24,7 @@ class AppTheme {
 
   static final darkTheme = ThemeData(
     brightness: Brightness.dark,
-    primaryColor: AppColors.primaryDark,
+    primaryColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.grayDark,
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.primaryDark,

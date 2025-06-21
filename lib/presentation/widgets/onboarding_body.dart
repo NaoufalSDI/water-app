@@ -59,7 +59,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
             children: [
               PageView.builder(
                 controller: pageController,
-                reverse: isArabic, // <<< هذا مهم جدا
+                reverse: isArabic,
                 itemCount: pages.length,
                 onPageChanged: (index) {
                   controller.currentPage.value = index;
@@ -91,7 +91,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
 
               // Skip button
               Positioned(
-                top: 50,
+                top: 40,
                 left: isArabic ? 30 : null,
                 right: isArabic ? null : 30,
                 child: Obx(
@@ -102,7 +102,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                             child: Text(
                               'skip'.tr,
                               style: theme.textTheme.bodyMedium?.copyWith(
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontFamily: 'Nunito',
                                 fontWeight: FontWeight.w600,
                                 color: theme.textTheme.bodyLarge?.color,
@@ -113,15 +113,13 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                 ),
               ),
 
-              // Language selector
               Positioned(
-                top: 40,
+                top: 25,
                 right: isArabic ? 30 : null,
                 left: isArabic ? null : 30,
                 child: LanguageSelector(),
               ),
 
-              // Indicator & Button
               Positioned(
                 bottom: 45,
                 left: 14,
@@ -163,7 +161,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: theme.primaryColor,
                             padding: const EdgeInsets.symmetric(
-                              vertical: 16,
+                              vertical: 15,
                               horizontal: 20,
                             ),
                             shape: RoundedRectangleBorder(
@@ -175,7 +173,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                                 ? 'start'.tr
                                 : 'next'.tr,
                             style: const TextStyle(
-                              fontSize: 17,
+                              fontSize: 18,
                               color: Colors.white,
                               fontFamily: "Roboto",
                               fontWeight: FontWeight.w700,

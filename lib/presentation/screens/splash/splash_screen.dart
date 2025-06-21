@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     'maaya'.tr,
                     key: const ValueKey('text'),
                     style: theme.textTheme.bodyLarge?.copyWith(
-                      fontSize: 35,
+                      fontSize: 40,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w900,
                       color: theme.primaryColor,

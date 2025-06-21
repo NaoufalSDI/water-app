@@ -1,3 +1,4 @@
+import 'package:maaya/presentation/screens/congrats/congrats_screen.dart';
 import 'package:maaya/presentation/screens/home/home_screen.dart';
 import 'package:maaya/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:maaya/presentation/screens/splash/splash_screen.dart';
@@ -10,5 +11,6 @@ class AppPages {
     GetPage(name: Routes.SPLASH, page: () => const SplashScreen()),
     GetPage(name: Routes.HOME, page: () => const HomeScreen()),
     GetPage(name: Routes.ONBOARDING, page: () => const OnboardingScreen()),
+    GetPage(name: Routes.CONGRAST, page: () => const CongratsScreen()),
   ];
 }
