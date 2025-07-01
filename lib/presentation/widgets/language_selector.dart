@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:maaya/presentation/widgets/language_selector_bottom_sheet.dart';
 
 class LanguageSelector extends StatelessWidget {
@@ -9,9 +10,10 @@ class LanguageSelector extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return IconButton(
-      icon: Icon(
-        Icons.language,
-        size: 28,
+      icon: SvgPicture.asset(
+        'assets/images/local_icon.svg',
+        height: 25,
+        width: 25,
         color: isDark ? Colors.white : Colors.blueAccent,
       ),
       tooltip: 'Change Language',

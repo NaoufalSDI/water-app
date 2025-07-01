@@ -1,7 +1,9 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:maaya/core/services/local_db_service.dart';
+import 'package:maaya/core/services/notification_service.dart';
 import 'package:maaya/core/theme/app_colors.dart';
 import 'package:maaya/config/app_pages.dart';
 import 'package:maaya/config/app_routes.dart';
@@ -12,14 +14,37 @@ import 'package:maaya/core/services/locale_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final savedLocale = await LocaleService.getSavedLocale();
+  // Initialize Android Alarm Manager
+  await AndroidAlarmManager.initialize();
+
+  // Initialize Local Database
   await LocalDBService.init();
-  runApp(MyApp(savedLocale: savedLocale));
+
+  // Initialize Notification Service
+  await NotificationService.initialize();
+
+  // Handle locale
+  final savedLocale = await LocaleService.getSavedLocale();
+  final supportedLangs = AppTranslations().keys.keys.toSet();
+  final deviceLocale = Get.deviceLocale;
+  final deviceLangCode = deviceLocale?.languageCode;
+
+  late Locale finalLocale;
+  if (savedLocale != null) {
+    finalLocale = savedLocale;
+  } else if (deviceLangCode != null &&
+      supportedLangs.contains(deviceLangCode)) {
+    finalLocale = Locale(deviceLangCode);
+  } else {
+    finalLocale = const Locale('en');
+  }
+
+  runApp(MyApp(initialLocale: finalLocale));
 }
 
 class MyApp extends StatelessWidget {
-  final Locale? savedLocale;
-  const MyApp({super.key, this.savedLocale});
+  final Locale initialLocale;
+  const MyApp({super.key, required this.initialLocale});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +56,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
 
       translations: AppTranslations(),
-      locale: savedLocale ?? const Locale('en'),
+      locale: initialLocale,
       fallbackLocale: const Locale('en'),
 
       initialRoute: Routes.SPLASH,

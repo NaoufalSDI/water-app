@@ -3,17 +3,16 @@ import 'package:get/get.dart';
 class AppTranslations extends Translations {
   @override
   Map<String, Map<String, String>> get keys => {
-    'en_US': {
-      'maaya': 'MaaYa',
-      'home': 'Home',
+    'en': {
+      'maaya': 'Amane',
       'skip': 'Skip',
       'next': 'Next',
       'start': 'Start',
       'welcome': 'Welcome',
       'onboarding_first_title': 'Track your daily water intake with us',
       'onboarding_second_title': 'Smart reminders tailored to you',
-      'dashboard': 'Dashboard',
-      'objectives': 'Goals',
+      'home': 'Home',
+      'reminders': 'Reminders',
       'settings': 'Settings',
       'advices': 'Tips',
       'actual_trucking': 'Current Tracking',
@@ -34,11 +33,18 @@ class AppTranslations extends Translations {
       'unit_ml': 'mL',
       'unit_l': 'L',
       'log_water_amount': 'Log water intake',
+      'save_reminder': 'Save reminder',
+      'reminder_time': 'Reminder time',
+      'select_days': 'Select days',
+      'select_sound': 'Select sound',
+      'no_reminders': 'No reminders',
+      'notification_title': 'Amane Time',
+      'notification_body':
+          'Time to drink water, take care of yourself and stay hydrated!',
     },
 
-    'fr_FR': {
-      'maaya': 'Maaya',
-      'home': 'Accueil',
+    'fr': {
+      'maaya': 'Amane',
       'skip': 'Passer',
       'next': 'Suivant',
       'start': 'Commencer',
@@ -47,8 +53,8 @@ class AppTranslations extends Translations {
           'Suivez votre consommation d\'eau quotidienne avec nous',
       'onboarding_second_title':
           'Des rappels intelligents adaptés à vos besoins',
-      'dashboard': 'Tableau de bord',
-      'objectives': 'Objectifs',
+      'home': 'Accueil',
+      'reminders': 'Rappels',
       'settings': 'Paramètres',
       'advices': 'Conseils',
       'actual_trucking': 'Suivi en cours',
@@ -69,25 +75,32 @@ class AppTranslations extends Translations {
       'unit_ml': 'mL',
       'unit_l': 'L',
       'log_water_amount': 'Enregistrer eau bue',
+      'save_reminder': 'Enregistrer rappel',
+      'reminder_time': 'Heure du rappel',
+      'select_days': '	Sélectionner les jours',
+      'select_sound': '	Choisir un son',
+      'no_reminders': 'Aucun rappel',
+      'notification_title': 'Heure d\'Amane',
+      'notification_body':
+          'Il est temps de boire de l\'eau, n\'oubliez pas de rester hydraté',
     },
 
-    'ar_MA': {
-      'maaya': 'ميّا',
-      'home': 'الرئيسية',
+    'ar': {
+      'maaya': 'أمان',
       'skip': 'تخطي',
       'next': 'التالي',
       'start': 'ابدأ',
       'welcome': 'مرحباً بك',
       'onboarding_first_title': 'تابع استهلاكك اليومي من الماء معنا',
       'onboarding_second_title': 'تذكيرات ذكية مخصصة لك',
-      'dashboard': 'الواجهة',
-      'objectives': 'الأهداف',
+      'home': 'الرئيسية',
+      'reminders': 'التذكيرات',
       'settings': 'الإعدادات',
       'advices': 'نصائح',
       'actual_trucking': 'التتبع الحالي',
       'you_have_drinked': 'لقد شربت @value',
       'water_trucking_week': 'ملخص استهلاكك للماء هذا الأسبوع',
-      'monday': 'اث',
+      'monday': 'إث',
       'tuesday': 'ثل',
       'wednesday': 'أر',
       'thursday': 'خم',
@@ -102,11 +115,17 @@ class AppTranslations extends Translations {
       'unit_ml': 'مل',
       'unit_l': 'لتر',
       'log_water_amount': 'أضف ما شربته',
+      'save_reminder': 'حفظ التذكير',
+      'reminder_time': 'وقت التذكير',
+      'select_days': 'اختر الأيام',
+      'select_sound': 'اختر نغمة',
+      'no_reminders': 'لا توجد تذكيرات',
+      'notification_title': 'وقت أمان',
+      'notification_body': 'حان وقت شرب الماء، لا تنسَ ترطيب جسمك باستمرار',
     },
 
-    'es_ES': {
-      'maaya': 'MaaYa',
-      'home': 'Inicio',
+    'es': {
+      'maaya': 'Amane',
       'skip': 'Saltar',
       'next': 'Siguiente',
       'start': 'Empezar',
@@ -114,8 +133,8 @@ class AppTranslations extends Translations {
       'onboarding_first_title':
           'Controla tu consumo diario de agua con nosotros',
       'onboarding_second_title': 'Recordatorios inteligentes pensados para ti',
-      'dashboard': 'Panel de control',
-      'objectives': 'Metas',
+      'home': 'Inicio',
+      'reminders': 'Recordatorios',
       'settings': 'Configuración',
       'advices': 'Consejos',
       'actual_trucking': 'Seguimiento actual',
@@ -136,6 +155,14 @@ class AppTranslations extends Translations {
       'unit_ml': 'mL',
       'unit_l': 'L',
       'log_water_amount': 'Registrar agua bebida',
+      'save_reminder': 'Guardar recordatorio',
+      'reminder_time': 'Hora del recordatorio',
+      'select_days': 'Seleccionar días',
+      'select_sound': 'Seleccionar sonido',
+      'no_reminders': 'Sin recordatorios',
+      'notification_title': 'Hora del Amane',
+      'notification_body':
+          'Es momento de beber agua, No olvides mantenerte hidratado',
     },
   };
 }

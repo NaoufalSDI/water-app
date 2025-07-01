@@ -89,7 +89,6 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                 },
               ),
 
-              // Skip button
               Positioned(
                 top: 40,
                 left: isArabic ? 30 : null,
@@ -114,7 +113,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               ),
 
               Positioned(
-                top: 25,
+                top: 30,
                 right: isArabic ? 30 : null,
                 left: isArabic ? null : 30,
                 child: LanguageSelector(),

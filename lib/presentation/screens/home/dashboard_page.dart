@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:maaya/core/services/local_db_service.dart';
 import 'package:get/get.dart';
+import 'package:maaya/presentation/widgets/add_water_dialog.dart';
 import 'package:maaya/presentation/widgets/week_water_chart.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -20,21 +21,8 @@ class DashboardPageState extends State<DashboardPage> {
   Timer? _timer;
   List<double> _weeklyData = List.filled(7, 0);
 
-  Future<void> loadToday() async {
-    final total = await LocalDBService.getTodayTotal();
-    setState(() => _todayTotal = total);
-  }
-
   Future<void> refreshData() async {
-    await loadToday();
-    await loadWeeklyData();
-  }
-
-  Future<void> loadWeeklyData() async {
-    final weeklyTotals = await LocalDBService.getWeeklyTotals();
-    setState(() {
-      _weeklyData = weeklyTotals;
-    });
+    await Future.wait([loadToday(), loadWeeklyData()]);
   }
 
   String formatWaterAmount(double amount) {
@@ -45,12 +33,15 @@ class DashboardPageState extends State<DashboardPage> {
     }
   }
 
-  @override
-  void initState() {
-    super.initState();
-    loadToday();
-    loadWeeklyData();
-    _startAccurateMinuteUpdater();
+  double _calculateWaterWaveHeight(double amountMl) {
+    const double minHeight = 41;
+    const double maxHeight = 200;
+    const double maxAmount = 5000;
+
+    if (amountMl >= maxAmount) return maxHeight;
+
+    final ratio = amountMl / maxAmount;
+    return minHeight + (maxHeight - minHeight) * ratio;
   }
 
   void _startAccurateMinuteUpdater() {
@@ -69,6 +60,32 @@ class DashboardPageState extends State<DashboardPage> {
     });
   }
 
+  Future<void> loadWeeklyData() async {
+    final weeklyTotals = await LocalDBService.getWeeklyTotals();
+    if (!mounted) return;
+    setState(() {
+      _weeklyData = weeklyTotals;
+    });
+  }
+
+  Future<void> loadToday() async {
+    try {
+      final total = await LocalDBService.getTodayTotal();
+      if (!mounted) return;
+      setState(() => _todayTotal = total);
+    } catch (e) {
+      debugPrint('Error loading today total: $e');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadToday();
+    loadWeeklyData();
+    _startAccurateMinuteUpdater();
+  }
+
   @override
   void dispose() {
     _timer?.cancel();
@@ -85,11 +102,11 @@ class DashboardPageState extends State<DashboardPage> {
     return Directionality(
       textDirection: textDirection,
       child: Scaffold(
+        extendBody: true,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
           child: SingleChildScrollView(
-            // Added scroll here
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -148,11 +165,16 @@ class DashboardPageState extends State<DashboardPage> {
                               borderRadius: const BorderRadius.vertical(
                                 bottom: Radius.circular(25),
                               ),
-                              child: SvgPicture.asset(
-                                'assets/images/water_waves_img.svg',
-                                fit: BoxFit.fitWidth,
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 1000),
+                                curve: Curves.easeOut,
                                 width: screenSize.width,
-                                height: 140,
+                                height: _calculateWaterWaveHeight(_todayTotal),
+                                child: SvgPicture.asset(
+                                  'assets/images/water_waves_img.svg',
+                                  fit: BoxFit.fitWidth,
+                                  width: screenSize.width,
+                                ),
                               ),
                             ),
                           ),
@@ -190,8 +212,9 @@ class DashboardPageState extends State<DashboardPage> {
                                     'value': formatWaterAmount(_todayTotal),
                                   }),
                                   style: TextStyle(
+                                    fontFamily: 'Roboto',
                                     fontSize: 17,
-                                    fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.w500,
                                     color:
                                         isDark
                                             ? Colors.white70
@@ -208,11 +231,40 @@ class DashboardPageState extends State<DashboardPage> {
                 ),
                 const SizedBox(height: 25),
                 WeeklyWaterChart(weeklyData: _weeklyData, isDark: isDark),
-                const SizedBox(height: 10),
+                const SizedBox(height: 40),
               ],
             ),
           ),
         ),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 80),
+          child: FloatingActionButton.extended(
+            onPressed: () async {
+              final added = await showAddWaterDialog(context);
+              if (added && mounted) {
+                refreshData();
+              }
+            },
+            icon: const Icon(Icons.water_drop_outlined, color: Colors.white),
+            label: Text(
+              'log_water_amount'.tr,
+              style: const TextStyle(
+                fontFamily: 'Nunito',
+                fontWeight: FontWeight.w800,
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: Theme.of(context).primaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+        ),
+        floatingActionButtonLocation:
+            textDirection == TextDirection.rtl
+                ? FloatingActionButtonLocation.endFloat
+                : FloatingActionButtonLocation.startFloat,
       ),
     );
   }

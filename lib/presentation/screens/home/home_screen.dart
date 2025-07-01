@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:maaya/presentation/screens/home/reminders_page.dart';
 import 'package:maaya/presentation/widgets/custom_glass_container.dart';
 import 'dashboard_page.dart';
 import 'package:get/get.dart';
-import 'package:maaya/presentation/widgets/add_water_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   late final _pages = [
     DashboardPage(key: dashboardKey),
-    const Placeholder(),
+    const ReminderPage(),
     const Placeholder(),
     const Placeholder(),
   ];
@@ -30,43 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
       extendBody: true,
       body: _pages[_selectedIndex],
 
-      floatingActionButton:
-          _selectedIndex == 0
-              ? FloatingActionButton.extended(
-                onPressed: () async {
-                  final added = await showAddWaterDialog(context);
-                  if (added && mounted) {
-                    dashboardKey.currentState?.refreshData();
-                  }
-                },
-                icon: const Icon(
-                  Icons.water_drop_outlined,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  'log_water_amount'.tr,
-                  style: TextStyle(
-                    fontFamily: 'Nunito',
-                    fontWeight: FontWeight.w800,
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-                backgroundColor: Theme.of(context).primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              )
-              : null,
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
-
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
         child: CustomGlassContainer(
           borderRadius: BorderRadius.circular(24),
           child: SizedBox(
-            height: 65,
+            height: 60,
             child: BottomNavigationBar(
               selectedLabelStyle: const TextStyle(
                 fontFamily: 'Nunito',
@@ -90,19 +60,63 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Colors.black.withOpacity(0.5),
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.dashboard),
-                  label: 'dashboard'.tr,
+                  icon: SvgPicture.asset(
+                    'assets/images/home_icon.svg',
+                    height: 20,
+                    colorFilter: ColorFilter.mode(
+                      _selectedIndex == 0
+                          ? Theme.of(context).primaryColor
+                          : (isDark
+                              ? Colors.white.withOpacity(0.5)
+                              : Colors.black.withOpacity(0.5)),
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  label: 'home'.tr,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.flag),
-                  label: 'objectives'.tr,
+                  icon: SvgPicture.asset(
+                    'assets/images/calendar_icon.svg',
+                    height: 20,
+                    colorFilter: ColorFilter.mode(
+                      _selectedIndex == 1
+                          ? Theme.of(context).primaryColor
+                          : (isDark
+                              ? Colors.white.withOpacity(0.5)
+                              : Colors.black.withOpacity(0.5)),
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  label: 'reminders'.tr,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.lightbulb),
+                  icon: SvgPicture.asset(
+                    'assets/images/advice_icon.svg',
+                    height: 20,
+                    colorFilter: ColorFilter.mode(
+                      _selectedIndex == 2
+                          ? Theme.of(context).primaryColor
+                          : (isDark
+                              ? Colors.white.withOpacity(0.5)
+                              : Colors.black.withOpacity(0.5)),
+                      BlendMode.srcIn,
+                    ),
+                  ),
                   label: 'advices'.tr,
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.settings),
+                  icon: SvgPicture.asset(
+                    'assets/images/settings_icon.svg',
+                    height: 20,
+                    colorFilter: ColorFilter.mode(
+                      _selectedIndex == 3
+                          ? Theme.of(context).primaryColor
+                          : (isDark
+                              ? Colors.white.withOpacity(0.5)
+                              : Colors.black.withOpacity(0.5)),
+                      BlendMode.srcIn,
+                    ),
+                  ),
                   label: 'settings'.tr,
                 ),
               ],

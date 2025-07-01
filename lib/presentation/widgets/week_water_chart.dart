@@ -101,7 +101,7 @@ class _WeeklyWaterChartState extends State<WeeklyWaterChart>
           ),
         ),
         SizedBox(
-          height: 220,
+          height: 210,
           child: AnimatedBuilder(
             animation: _animation,
             builder: (context, child) {
@@ -128,7 +128,8 @@ class _WeeklyWaterChartState extends State<WeeklyWaterChart>
                           ),
                           const SizedBox(height: 4),
                           AnimatedContainer(
-                            duration: const Duration(milliseconds: 800),
+                            curve: Curves.easeOut,
+                            duration: const Duration(milliseconds: 500),
                             width: 18,
                             height: animatedHeight,
                             decoration: BoxDecoration(
@@ -136,12 +137,8 @@ class _WeeklyWaterChartState extends State<WeeklyWaterChart>
                                 begin: Alignment.bottomCenter,
                                 end: Alignment.topCenter,
                                 colors: [
-                                  (entry['color'] as Color).withOpacity(
-                                    0.5,
-                                  ), // لون فاتح (شفاف أكثر) في الأسفل
-                                  (entry['color'] as Color).withOpacity(
-                                    1.0,
-                                  ), // لون غامق في الأعلى
+                                  (entry['color'] as Color).withOpacity(0.7),
+                                  (entry['color'] as Color).withOpacity(1.0),
                                 ],
                               ),
                               borderRadius: BorderRadius.circular(6),
@@ -152,9 +149,9 @@ class _WeeklyWaterChartState extends State<WeeklyWaterChart>
                           Text(
                             entry['day'] as String,
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 15,
                               color: textColor,
-                              fontFamily: 'Nunito',
+                              fontFamily: 'Roboto',
                               fontWeight: FontWeight.w800,
                             ),
                           ),

@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     key: const ValueKey('text'),
                     style: theme.textTheme.bodyLarge?.copyWith(
                       fontSize: 40,
-                      fontFamily: 'Roboto',
+                      fontFamily: 'Nunito',
                       fontWeight: FontWeight.w900,
                       color: theme.primaryColor,
                       letterSpacing: 2,
