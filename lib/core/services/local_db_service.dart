@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -95,23 +93,20 @@ class LocalDBService {
     int minute,
     List<String> days,
   ) async {
-    final db = _db!;
-    return await db.insert('reminders', {
+    return await _db!.insert('reminders', {
       'hour': hour,
       'minute': minute,
-      'days': daysToJson(days),
+      'days': days.join(','),
       'isActive': 1,
     });
   }
 
   static Future<List<Map<String, dynamic>>> getAllReminders() async {
-    final db = _db!;
-    return await db.query('reminders', orderBy: 'id DESC');
+    return await _db!.query('reminders');
   }
 
   static Future<void> updateReminderStatus(int id, bool isActive) async {
-    final db = _db!;
-    await db.update(
+    await _db!.update(
       'reminders',
       {'isActive': isActive ? 1 : 0},
       where: 'id = ?',
@@ -120,11 +115,10 @@ class LocalDBService {
   }
 
   static Future<void> deleteReminder(int id) async {
-    final db = _db!;
-    await db.delete('reminders', where: 'id = ?', whereArgs: [id]);
+    await _db!.delete('reminders', where: 'id = ?', whereArgs: [id]);
   }
 
-  static String daysToJson(List<String> days) => jsonEncode(days);
-  static List<String> daysFromJson(String jsonStr) =>
-      List<String>.from(jsonDecode(jsonStr));
+  static List<String> daysFromJson(String daysString) {
+    return daysString.split(',').where((e) => e.trim().isNotEmpty).toList();
+  }
 }

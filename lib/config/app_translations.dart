@@ -41,6 +41,8 @@ class AppTranslations extends Translations {
       'notification_title': 'Amane Time',
       'notification_body':
           'Time to drink water, take care of yourself and stay hydrated!',
+      "error_title": "Error",
+      "error_days_required": "Please select at least one day.",
     },
 
     'fr': {
@@ -83,6 +85,8 @@ class AppTranslations extends Translations {
       'notification_title': 'Heure d\'Amane',
       'notification_body':
           'Il est temps de boire de l\'eau, n\'oubliez pas de rester hydraté',
+      "error_title": "Erreur",
+      "error_days_required": "Veuillez sélectionner au moins un jour.",
     },
 
     'ar': {
@@ -122,6 +126,8 @@ class AppTranslations extends Translations {
       'no_reminders': 'لا توجد تذكيرات',
       'notification_title': 'وقت أمان',
       'notification_body': 'حان وقت شرب الماء، لا تنسَ ترطيب جسمك باستمرار',
+      "error_title": "خطأ",
+      "error_days_required": "المرجو اختيار يوم واحد على الأقل.",
     },
 
     'es': {
@@ -163,6 +169,8 @@ class AppTranslations extends Translations {
       'notification_title': 'Hora del Amane',
       'notification_body':
           'Es momento de beber agua, No olvides mantenerte hidratado',
+      "error_title": "Error",
+      "error_days_required": "Por favor selecciona al menos un día.",
     },
   };
 }

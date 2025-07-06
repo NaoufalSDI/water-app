@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maaya/core/theme/app_colors.dart';
+import 'package:maaya/presentation/widgets/overlay_alert.dart';
 import '../../core/services/local_db_service.dart';
 import 'package:get/get.dart';
 
@@ -116,22 +117,10 @@ Future<bool> showAddWaterDialog(BuildContext context) async {
                                 await LocalDBService.insertWater(amount);
                                 Navigator.pop(context, true);
                               } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    backgroundColor:
-                                        Theme.of(
-                                          context,
-                                        ).scaffoldBackgroundColor,
-                                    content: Text(
-                                      'invalid_amount'.tr,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: AppColors.error,
-                                        fontFamily: 'Roboto',
-                                        fontWeight: FontWeight.w800,
-                                      ),
-                                    ),
-                                  ),
+                                showOverlayAlert(
+                                  context: context,
+                                  message: 'invalid_amount'.tr,
+                                  isError: true,
                                 );
                               }
                             },

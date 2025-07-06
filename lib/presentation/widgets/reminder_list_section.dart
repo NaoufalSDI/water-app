@@ -16,44 +16,66 @@ class ReminderListSection extends StatelessWidget {
         return Center(
           child: Padding(
             padding: const EdgeInsets.only(top: 40),
-            child: Directionality(
-              textDirection: Directionality.of(context),
-              child: Text(
-                "no_reminders".tr,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Roboto',
-                ),
+            child: Text(
+              "no_reminders".tr,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Roboto',
               ),
             ),
           ),
         );
       }
 
-      return Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: Directionality(
-          textDirection: Directionality.of(context),
-          child: StaggeredGrid.count(
-            crossAxisCount: 2,
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            children:
-                controller.reminders.map((reminder) {
-                  return ReminderCard(
-                    reminder: reminder,
-                    onToggle: (value) {
-                      controller.toggleReminder(reminder.id, value);
-                    },
-                    onDelete: () {
-                      controller.deleteReminder(reminder.id);
-                    },
-                  );
-                }).toList(),
-          ),
-        ),
+      return AnimatedSwitcher(
+        duration: const Duration(milliseconds: 400),
+        switchInCurve: Curves.easeInOut,
+        switchOutCurve: Curves.easeInOut,
+        child:
+            controller.isGrid.value
+                ? _buildGrid(controller)
+                : _buildList(controller),
       );
     });
+  }
+
+  Widget _buildGrid(ReminderController controller) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: StaggeredGrid.count(
+        crossAxisCount: 2,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        key: const ValueKey('grid'),
+        children:
+            controller.reminders.map((reminder) {
+              return ReminderCard(
+                reminder: reminder,
+                onToggle:
+                    (value) => controller.toggleReminder(reminder.id, value),
+                onDelete: () => controller.deleteReminder(reminder.id),
+              );
+            }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildList(ReminderController controller) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Column(
+        key: const ValueKey('list'),
+        children:
+            controller.reminders.map((reminder) {
+              return ReminderCard(
+                reminder: reminder,
+                onToggle:
+                    (value) => controller.toggleReminder(reminder.id, value),
+                onDelete: () => controller.deleteReminder(reminder.id),
+              );
+            }).toList(),
+      ),
+    );
   }
 }
