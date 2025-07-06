@@ -1,27 +1,23 @@
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:maaya/core/services/local_db_service.dart';
+import 'package:maaya/core/services/locale_service.dart';
 import 'package:maaya/core/services/notification_service.dart';
 import 'package:maaya/core/theme/app_colors.dart';
 import 'package:maaya/config/app_pages.dart';
 import 'package:maaya/config/app_routes.dart';
 import 'package:maaya/core/theme/app_themes.dart';
 import 'package:maaya/config/app_translations.dart';
-import 'package:maaya/core/services/locale_service.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Initialize Android Alarm Manager
-  await AndroidAlarmManager.initialize();
-
-  // Initialize Local Database
+  await setupTimezone();
   await LocalDBService.init();
-
-  // Initialize Notification Service
-  await NotificationService.initialize();
+  await NotificationService().initialize();
 
   // Handle locale
   final savedLocale = await LocaleService.getSavedLocale();
@@ -40,6 +36,12 @@ void main() async {
   }
 
   runApp(MyApp(initialLocale: finalLocale));
+}
+
+Future<void> setupTimezone() async {
+  tz.initializeTimeZones();
+  final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
+  tz.setLocalLocation(tz.getLocation(currentTimeZone));
 }
 
 class MyApp extends StatelessWidget {

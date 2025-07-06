@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
-import 'package:flutter/services.dart';
 import 'package:maaya/presentation/controllers/splash_controller.dart';
 
 class SplashScreen extends StatefulWidget {
