@@ -43,6 +43,13 @@ class AppTranslations extends Translations {
           'Time to drink water, take care of yourself and stay hydrated!',
       "error_title": "Error",
       "error_days_required": "Please select at least one day.",
+      'chat_start': 'Start a conversation',
+      'chat_typing': 'Typing...',
+      'chat_title': 'Ask AI',
+      'chat_input_hint': 'Ask me anything...',
+      'error_connection': 'Connection error. Please check your internet.',
+      'error_api': 'Server error. Please try again later.',
+      'error_unknown': 'Unknown error occurred.',
     },
 
     'fr': {
@@ -87,6 +94,13 @@ class AppTranslations extends Translations {
           'Il est temps de boire de l\'eau, n\'oubliez pas de rester hydraté',
       "error_title": "Erreur",
       "error_days_required": "Veuillez sélectionner au moins un jour.",
+      'chat_start': 'Commencez une conversation',
+      'chat_typing': 'Saisie en cours...',
+      'chat_title': 'Demander à l\'IA',
+      'chat_input_hint': 'Posez-moi n\'importe quoi...',
+      'error_connection': 'Erreur de connexion. Vérifiez votre internet.',
+      'error_api': 'Erreur du serveur. Veuillez réessayer plus tard.',
+      'error_unknown': 'Une erreur inconnue est survenue.',
     },
 
     'ar': {
@@ -128,6 +142,13 @@ class AppTranslations extends Translations {
       'notification_body': 'حان وقت شرب الماء، لا تنسَ ترطيب جسمك باستمرار',
       "error_title": "خطأ",
       "error_days_required": "المرجو اختيار يوم واحد على الأقل.",
+      'chat_start': 'ابدأ محادثة',
+      'chat_typing': 'يكتب...',
+      'chat_title': 'اسأل الذكاء الاصطناعي',
+      'chat_input_hint': 'اسألني أي شيء...',
+      'error_connection': 'خطأ في الاتصال. تحقق من الإنترنت.',
+      'error_api': 'خطأ في الخادم. حاول مرة أخرى لاحقًا.',
+      'error_unknown': 'حدث خطأ غير معروف.',
     },
 
     'es': {
@@ -171,6 +192,13 @@ class AppTranslations extends Translations {
           'Es momento de beber agua, No olvides mantenerte hidratado',
       "error_title": "Error",
       "error_days_required": "Por favor selecciona al menos un día.",
+      'chat_start': 'Inicia una conversación',
+      'chat_typing': 'Escribiendo...',
+      'chat_title': 'Pregunta a la IA',
+      'chat_input_hint': 'Pregúntame lo que quieras...',
+      'error_connection': 'Error de conexión. Verifique su internet.',
+      'error_api': 'Error del servidor. Inténtalo más tarde.',
+      'error_unknown': 'Ocurrió un error desconocido.',
     },
   };
 }

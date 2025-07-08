@@ -6,20 +6,27 @@ void showOverlayAlert({
   required String message,
   bool isError = false,
 }) {
-  final overlay = Overlay.of(context);
+  // نجيبو Overlay من navigator مباشرة
+  final overlayState = Navigator.of(context).overlay;
+  if (overlayState == null) return;
+
+  final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
   final isDark = Theme.of(context).brightness == Brightness.dark;
 
   final entry = OverlayEntry(
     builder:
-        (_) => Positioned(
-          bottom: 50,
+        (context) => Positioned(
+          bottom: bottomPadding > 0 ? bottomPadding + 20 : 50,
           left: 20,
           right: 20,
-          child: _Alert(message: message, isError: isError, isDark: isDark),
+          child: Material(
+            color: Colors.transparent,
+            child: _Alert(message: message, isError: isError, isDark: isDark),
+          ),
         ),
   );
 
-  overlay.insert(entry);
+  overlayState.insert(entry);
 
   Future.delayed(const Duration(seconds: 2), () {
     entry.remove();

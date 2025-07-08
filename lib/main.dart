@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:get/get.dart';
 import 'package:maaya/core/services/local_db_service.dart';
@@ -35,6 +36,8 @@ void main() async {
     finalLocale = const Locale('en');
   }
 
+  await dotenv.load(fileName: "assets/.env");
+  print('[DEBUG] GEMINI_API_KEY: ${dotenv.env['GEMINI_API_KEY']}');
   runApp(MyApp(initialLocale: finalLocale));
 }
 

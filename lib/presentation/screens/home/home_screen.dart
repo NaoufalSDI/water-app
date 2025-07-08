@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:maaya/presentation/screens/home/chat_screen.dart';
 import 'package:maaya/presentation/screens/home/reminders_page.dart';
 import 'package:maaya/presentation/widgets/custom_glass_container.dart';
 import 'dashboard_page.dart';
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late final _pages = [
     DashboardPage(key: dashboardKey),
     const ReminderPage(),
-    const Placeholder(),
+    const ChatScreen(),
     const Placeholder(),
   ];
 

@@ -20,7 +20,7 @@ class CustomGlassContainer extends StatelessWidget {
     return ClipRRect(
       borderRadius: borderRadius,
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+        filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
         child: Container(
           height: 60,
           padding: padding,

@@ -10,19 +10,25 @@ Future<bool> showAddWaterDialog(BuildContext context) async {
 
   return await showDialog<bool>(
         context: context,
-        builder:
-            (_) => Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  top: 20,
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 20,
-                ),
-                child: SingleChildScrollView(
+        builder: (_) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: StatefulBuilder(
+              // this is key to controlling dialog state
+              builder: (context, setState) {
+                final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+
+                return AnimatedPadding(
+                  duration: const Duration(milliseconds: 250),
+                  padding: EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                    top: 20,
+                    bottom: bottomInset + 20,
+                  ),
+                  curve: Curves.decelerate,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -38,28 +44,15 @@ Future<bool> showAddWaterDialog(BuildContext context) async {
                       const SizedBox(height: 15),
                       TextField(
                         controller: controller,
-                        keyboardType: TextInputType.numberWithOptions(
+                        keyboardType: const TextInputType.numberWithOptions(
                           decimal: true,
                         ),
                         cursorColor: AppColors.primary,
                         decoration: InputDecoration(
                           hintText: 'enter_amount_hint'.tr,
-                          hintStyle: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color:
-                                isDark
-                                    ? Colors.white.withOpacity(0.4)
-                                    : Colors.black.withOpacity(0.4),
-                          ),
                           prefixIcon: const Icon(
                             Icons.local_drink,
                             color: AppColors.primary,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15,
-                            horizontal: 10,
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -71,12 +64,25 @@ Future<bool> showAddWaterDialog(BuildContext context) async {
                               width: 1.2,
                             ),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: const BorderSide(
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                            borderSide: BorderSide(
                               color: AppColors.primary,
                               width: 1.8,
                             ),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15,
+                            horizontal: 10,
+                          ),
+                          hintStyle: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color:
+                                isDark
+                                    ? Colors.white.withOpacity(0.4)
+                                    : Colors.black.withOpacity(0.4),
                           ),
                         ),
                       ),
@@ -85,33 +91,16 @@ Future<bool> showAddWaterDialog(BuildContext context) async {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           TextButton(
-                            style: TextButton.styleFrom(
-                              foregroundColor: Colors.grey[600],
-                            ),
                             onPressed: () => Navigator.pop(context, false),
-                            child: Text(
-                              'cancel'.tr,
-                              style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: isDark ? Colors.white : Colors.black,
-                              ),
-                            ),
+                            child: Text('cancel'.tr),
                           ),
                           const SizedBox(width: 10),
                           ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 12,
-                              ),
-                            ),
                             onPressed: () async {
+                              FocusScope.of(
+                                context,
+                              ).unfocus(); // THIS will work now
+
                               final amount = double.tryParse(controller.text);
                               if (amount != null && amount > 0) {
                                 await LocalDBService.insertWater(amount);
@@ -124,23 +113,17 @@ Future<bool> showAddWaterDialog(BuildContext context) async {
                                 );
                               }
                             },
-                            child: Text(
-                              'add'.tr,
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 16,
-                                fontFamily: 'Nunito',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: Text('add'.tr),
                           ),
                         ],
                       ),
                     ],
                   ),
-                ),
-              ),
+                );
+              },
             ),
+          );
+        },
       ) ??
       false;
 }
